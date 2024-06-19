@@ -1,0 +1,319 @@
+﻿#rbnMainMenu {
+	position: absolute;
+	top: 30px;
+	left: 0px;
+	display: none;
+	z-index: 4;
+}
+
+	/**************************************************************************************************************/
+	/* BORDER */
+	/**************************************************************************************************************/
+	#rbnMainMenu_top {
+		background-image:url(../graphics/skins/blue/top.jpg);
+		background-repeat: repeat-x;
+		height: 18px;
+		overflow: hidden;
+	}
+	
+		#rbnMainMenu_topLeft {
+			background-image: url(../graphics/skins/blue/top-left.jpg);
+			background-repeat: no-repeat;
+			height: 18px;
+		}
+		
+		#rbnMainMenu_topRight {
+			background-image: url(../graphics/skins/blue/top-right.jpg);
+			background-repeat: no-repeat;
+			background-position: top right;
+			height: 18px;
+		}
+		
+	#rbnMainMenu_bottom {
+		background-image: url(../graphics/skins/blue/bottom.jpg);
+		background-repeat: repeat-x;
+		height: 29px;
+
+	}
+	
+		#rbnMainMenu_bottomLeft {
+			background-image: url(../graphics/skins/blue/bottom-left.jpg);
+			background-repeat: no-repeat;
+			height: 29px;
+		}
+		
+		#rbnMainMenu_bottomRight {
+			background-image: url(../graphics/skins/blue/bottom-right.jpg);
+			background-repeat: no-repeat;
+			background-position: top right;
+			height: 29px;
+		}
+		
+	#rbnMainMenu_contentLeft {
+		height: 100%;
+		background-image: url(../graphics/skins/blue/left.jpg);
+		background-repeat: repeat-y;
+		background-position: top left;
+		padding-left: 6px;
+	}
+	
+	#rbnMainMenu_contentRight {
+		height: 100%;
+		background-image: url(../graphics/skins/blue/right.jpg);
+		background-repeat: repeat-y;
+		background-position: top right;
+		padding-right: 6px;
+		position: relative;
+	}
+	
+	
+	/*********************************************************************************************************************************/
+	/* TABLE BASED DESIGN */
+	/*********************************************************************************************************************************/
+	table.rbnMainMenu_items {
+		/*background-color: White;*/
+	}
+	
+	table.rbnMainMenu_items * {
+		cursor: default;
+	}
+	
+	table.rbnMainMenu_items tr {
+		height: 44px;
+	}
+	
+		table.rbnMainMenu_items td div.shortcut {
+			background-image: url(../graphics/skins/blue/shortcutbgrnd.gif);
+			background-repeat: no-repeat;
+			width: 16px;
+			height: 16px;
+			font-size: 11px;
+			text-align: center;
+			padding-top: 1px;
+			position: absolute;
+			top: 22px;
+			left: 23px;
+			z-index: 2;
+			display: none;
+		}
+		
+		table.showShortcuts td div.shortcut {
+		    display: block;
+		}
+		
+	
+		table.rbnMainMenu_items td.left, 
+		table.rbnMainMenu_items td.right {
+			width: 2px;
+		}
+		
+			
+		table.rbnMainMenu_items td.img {
+			padding: 0px 10px 0px 5px;
+			position: relative;
+		}
+		
+		table.rbnMainMenu_items td.text {
+			width: 100%;
+			font-weight: normal;	
+	        font-size: 8pt;	
+	        font-family: Verdana;	
+	        white-space: normal; 
+			color: #00156E;
+			text-align: left;
+		}
+		
+		table.rbnMainMenu_items div.arrow {
+			background-image: url(../graphics/skins/blue/mainMenu-arrow.gif);
+			background-repeat: no-repeat;
+			background-position: center center;
+			width: 22px;
+			height: 100%;
+		}
+		
+		table.rbnMainMenu_items td.arrow div.break {
+			height: 100%;
+			position: relative;
+		}
+		
+		/********************************************************************************************************/
+		/* SELECTED ITEMS */
+		/********************************************************************************************************/
+		table.rbnMainMenu_items tr.selected td, 
+		table.rbnMainMenu_items tr.selectedL td, 
+		table.rbnMainMenu_items tr.selectedR td,
+		table.rbnMainMenu_items tr.selectedB td,
+		table.rbnMainMenu_items tr.disabledHotR td.img,
+		table.rbnMainMenu_items tr.disabledHotR td.text,
+		table.rbnMainMenu_items tr.disabledHotL td.arrow {
+			background-image: url(../graphics/skins/blue/mnuItemSelected.jpg);
+			background-repeat: repeat-x;
+		}
+		
+			table.rbnMainMenu_items tr.selected td.left, 
+			table.rbnMainMenu_items tr.selectedL td.left, 
+			table.rbnMainMenu_items tr.selectedR td.left,
+			table.rbnMainMenu_items tr.selectedB td.left {
+				background-image: url(../graphics/skins/blue/mnuItemSelected-left.jpg);
+				background-repeat: no-repeat;
+				background-position: top right;
+			}
+			
+			table.rbnMainMenu_items tr.selected td.right, 
+			table.rbnMainMenu_items tr.selectedL td.right, 
+			table.rbnMainMenu_items tr.selectedR td.right,
+			table.rbnMainMenu_items tr.selectedB td.right {
+				background-image: url(../graphics/skins/blue/mnuItemSelected-right.jpg);
+				background-repeat: no-repeat;
+				background-position: top left;
+			}
+			
+		
+		table.rbnMainMenu_items tr.selected td.arrow div.break, 
+		table.rbnMainMenu_items tr.selectedL td.arrow div.break, 
+		table.rbnMainMenu_items tr.selectedR td.arrow div.break,
+		table.rbnMainMenu_items tr.selectedB td.arrow div.break {
+			background-image: url(../graphics/skins/blue/mnuItemSelected-break.jpg);
+			background-repeat: no-repeat;
+		}
+		
+		table.rbnMainMenu_items tr.selectedR td.img, 
+		table.rbnMainMenu_items tr.selectedR td.text,
+		table.rbnMainMenu_items tr.selectedL td.arrow {
+			background-image: url(../graphics/skins/blue/mnuItemSemiSelected.jpg);
+			background-repeat: repeat-x;
+		}
+		
+		/********************************************************************************************************/
+		/* DISABLED ITEMS */
+		/********************************************************************************************************/
+		table.rbnMainMenu_items tr.disabledHot td, 
+		table.rbnMainMenu_items tr.disabledHotL td, 
+		table.rbnMainMenu_items tr.disabledHotR td {
+			background-image: url(../graphics/skins/blue/mnuItemDisabled.jpg);
+			background-repeat: repeat-x;
+		}
+		
+		table.rbnMainMenu_items tr.disabledHot td.left, 
+		table.rbnMainMenu_items tr.disabledHotL td.left, 
+		table.rbnMainMenu_items tr.disabledHotR td.left {
+			background-image: url(../graphics/skins/blue/mnuItemDisabled-left.jpg);
+			background-repeat: no-repeat;
+			background-position: top right;
+		}	
+		
+		table.rbnMainMenu_items tr.disabledHot td.right, 
+		table.rbnMainMenu_items tr.disabledHotL td.right, 
+		table.rbnMainMenu_items tr.disabledHotR td.right {
+			background-image: url(../graphics/skins/blue/mnuItemDisabled-right.jpg);
+			background-repeat: no-repeat;
+			background-position: top left;
+		}
+		
+		table.rbnMainMenu_items tr.disabledHot td.arrow div.break,
+		table.rbnMainMenu_items tr.disabledHotL td.arrow div.break,
+		table.rbnMainMenu_items tr.disabledHotR td.arrow div.break {
+			background-image: url(../graphics/skins/blue/mnuItemDisabled-break.jpg);
+			background-repeat: no-repeat;
+		}
+		
+		table.rbnMainMenu_items tr.disabled td, 
+		table.rbnMainMenu_items tr.disabledHot td, 
+		table.rbnMainMenu_items tr.disabledHotL td.text,
+		table.rbnMainMenu_items tr.disabledHotR td.arrow {
+			color: #A7A7A7;
+		}
+		
+		table.rbnMainMenu_items tr.disabled img, 
+		table.rbnMainMenu_items tr.disabledHot img, 
+		table.rbnMainMenu_items tr.disabledHotL img, 
+		table.rbnMainMenu_items tr.disabled .shortcut, 
+		table.rbnMainMenu_items tr.disabledHot .shortcut, 
+		table.rbnMainMenu_items tr.disabledHotL td.img .shortcut, 
+		table.rbnMainMenu_items tr.disabledHotR td.arrow .shortcut {
+			filter:alpha(opacity=35);
+			color: #333333;
+		}
+		
+		table.rbnMainMenu_items tr.menuSeparator {
+		    height: 1px;
+		    line-height: 1px;
+	    }
+	    
+	    table.rbnMainMenu_items tr.menuSeparator td {
+		    border-bottom: 1px solid #C5C5C5;
+	    }
+	
+
+
+    .rbnMenuView {
+        display: none;
+        width: 100%;
+        cursor: default;
+    }
+    
+    .rbnMenuViewTitle {
+        height: 24px;
+        color: #00156E;
+        font-weight: bold;
+        font-size: 8pt;
+        border-bottom: 1px solid #C5C5C5;
+        padding: 5px 0 0 5px;
+    }
+    
+    .rbnMenuViewContent {
+        height: 100%;
+        text-align: left;
+        vertical-align: top;
+        overflow: auto;
+        padding-top: 5px;
+    }
+	
+.underline {
+	text-decoration: underline;
+}
+
+table.rbnMainMenu_items tr td.arrow div.shortcut {
+	left: 13px;
+}
+
+    table.rbnMainMenuDocItems {
+        width: 100%;
+    }
+
+    table.rbnMainMenuDocItems td {
+        height: 21px;
+        cursor: default;
+        color: #00156E;
+    }
+    
+    table.rbnMainMenuDocItems td.title {
+        padding-left: 10px;
+        font-size: 8pt;
+    }
+    
+    table.rbnMainMenuDocItems td.left, table.rbnMainMenuDocItems td.mleft, table.rbnMainMenuDocItems td.right {
+        width: 2px;
+    }
+    
+    table.rbnMainMenuDocItems td.sticky {
+        width: 24px;
+        text-align: center;
+        vertical-align: middle;
+    }  
+    
+    table.rbnMainMenuDocItems tr.hot td, table.rbnMainMenuDocItems tr.semihot td.sticky {
+        background-image: url(../graphics/skins/blue/rbnMnuDocItem.gif);
+        background-repeat: repeat-x;
+    }
+    
+    table.rbnMainMenuDocItems tr.hot td.left, table.rbnMainMenuDocItems tr.semihot td.mleft {
+        background-image: url(../graphics/skins/blue/rbnMnuDocItem_left.gif);
+        background-repeat: no-repeat;
+        background-position: top right;
+    }
+    
+    table.rbnMainMenuDocItems tr.hot td.right, table.rbnMainMenuDocItems tr.semihot td.right {
+        background-image: url(../graphics/skins/blue/rbnMnuDocItem_right.gif);
+        background-repeat: no-repeat;
+    }

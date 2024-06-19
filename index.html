@@ -1,0 +1,614 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>HTML Editor</title>
+    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link href="css/office2007.blue.css" rel="stylesheet" type="text/css" />
+    <link href="css/ribbon.mainmenu.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        html, body 
+        {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        input 
+        {
+            border: 1px solid black;
+        }
+        
+        .ribbonInput 
+        {
+            border: 1px solid #ABC1DE;
+            background-color: #EAF2FB;
+            font-family: Tahoma;
+            font-size: 12px;
+            width: 250px;
+        }
+    </style>
+
+    <script type="text/javascript" src="include/sysutils.js"></script>
+    <script type="text/javascript" src="include/docutils.js"></script>
+    <script type="text/javascript" src="include/undo.js"></script>
+    <script type="text/javascript" src="include/objeditor.js"></script>
+    <script type="text/javascript" src="include/actions/SelectAction.js"></script>
+    <script type="text/javascript" src="include/XML2.class.js"></script>
+    <script type="text/javascript" src="include/menu.js"></script>
+    <script type="text/javascript" src="include/ribbon.js"></script>
+    <script type="text/javascript" src="include/ribbon-main-menu.js"></script>
+    <script type="text/javascript" src="include/hotkeyManager.js"></script>
+    <script type="text/javascript">
+        var editorVersion = '1.0.13';
+        var iFr = null;
+        var iDoc = null;
+        var mainMenu = null;
+        var ribbon = null;
+        var homeTabID = 'home';
+        var editTabID = 'align';
+        var ccID = 'ccID';
+        var ccFmla = 'ccFmla';
+        var ccEmpty = 'ccEmpty';
+        var findID = 'findID';
+        var findTabID ='find';
+        var tabHome = null;
+        var tabEdit = null;
+        /*var btnSelAll = {
+            id: 'ccSelAll',
+            checked: false
+        }*/
+    
+        function DoResize() {
+            try {
+                var totalHeight = document.body.clientHeight;
+                var toolbarHeight = document.getElementById('ribbon').offsetHeight;
+                document.getElementById('iFr').style.height = (totalHeight - toolbarHeight) + 'px';
+            }
+            catch (e) {
+                
+            }
+        }
+    
+        window.onresize = function() {
+            DoResize();
+        }
+        
+        function initApp() {                 
+            try {
+                document.getElementById('inputID').value = '';
+                document.getElementById('formula').value = '';
+            }
+            catch (e) { }
+            
+            /*var menuXML = '<module><name>File</name>';
+                menuXML += '<process><name>test</name><icon>new</icon><src>alert("merge")</src></process>';
+                menuXML += '</module>';
+            var items = modulesAndProcessToItems(menuXML);
+            mainMenu = new popUpMenu(document, items, 10, 10);*/
+            ribbon = getRibbon();
+            // window.addEventListener('pre-render-loaded', () => {
+            //     alert("DONE")
+            //     ribbon.onPrerenderLoaded();
+            // });
+
+            ribbon.addEvalFn(ccID, evalFnControls);
+            ribbon.addEvalFn(findID, evalFnControls);
+            ribbon.addEvalFn(ccFmla, evalFnControls);
+            ribbon.addEvalFn(ccEmpty, evalFnControls);
+            //ribbon.addEvalFn(btnSelAll.id, evalFnControls);
+            ribbon.buildUserInterface();
+            tabHome = ribbon.insertTab(  -1, homeTabID, translate("File"), getFileTabXML());
+            tabEdit = ribbon.insertTab(  -1, editTabID, translate("Edit"), getEditTabXML());
+            tabFind = ribbon.insertTab(  -1, findTabID, translate("Find"), getFindTabXML());
+           	// homeTab.attachEvent("onSelect", application_home_selectHomeTab);
+           	
+           	ribbon.menu.recentDocs.onItemClicked = function(_item) { LoadFromFile(_item.__userData); } 
+
+          	var btnQATLoad = ribbon.insertQATButton(-1, 'btnQATLoad', getBtnLoadXML(), null);
+          	var btnQATSave = ribbon.insertQATButton(-1, 'btnQATSave', getBtnSaveXML(), null);
+          	ribbon.menu.onLoadData = mainMenuLoadData;
+          	ribbon.setTitle('HTML EDITOR v' + editorVersion);
+           	
+           	
+           	ribbon.setActiveTab( tabHome );
+           	
+           	DoResize();
+           	LoadRecentDocs();
+        }
+        
+        function getBtnLoadXML() {
+            return '<process><id>btnLoad</id><name>Load</name><src>loadVML()</src><icon>open</icon></process>';
+        }
+        
+        function getBtnSaveXML() {
+            return '<process><id>btnSave</id><name>Save</name><src>saveVML()</src><icon>save</icon></process>';
+        }
+        
+        function mainMenuLoadData() {
+            var xml = '<module><name>Menu</name>';
+                xml += getBtnLoadXML();
+                xml += getBtnSaveXML();
+                
+            xml += '</module>';
+            
+            return xml;
+        }
+        
+        function evalFnControls(_fn, _control, _groupSize, _prerendering) {
+	        return eval(_fn + '(_control, _groupSize, _prerendering)');
+	    }
+	    
+	    function ctrlDraw(_sender, _groupSize, _prerendering) {
+	        switch (_sender.id) {
+	            case findID:
+	                var elem = _sender.ownerDocument.createElement('INPUT');
+	                elem.type = 'text';
+	                elem.id = 'inputFindID';
+	                elem.className = 'ribbonInput';
+	                elem.title = 'Input ID';
+	                _sender.appendChild(elem);
+	               if (! _prerendering)
+	                    objEditor.getInputID();
+	                break;
+	            
+	            case ccID:
+	                var elem = _sender.ownerDocument.createElement('INPUT');
+	                elem.type = 'text';
+	                elem.id = 'inputID';
+	                elem.className = 'ribbonInput';
+	                elem.title = 'Input ID';
+	                _sender.appendChild(elem);
+	                
+	                if (! _prerendering)
+	                    objEditor.getInputID();
+	                break;
+	                
+	            case ccFmla:
+	                var elem = _sender.ownerDocument.createElement('INPUT');
+	                elem.type = 'text';
+	                elem.id = 'formula';
+	                elem.title = 'Input formula';
+	                elem.className = 'ribbonInput';
+	                _sender.appendChild(elem);
+	                
+	                if (! _prerendering)
+	                    objEditor.getInputFormula();
+	                break;
+	                
+	            /*case btnSelAll.id: 
+	                var label = _sender.ownerDocument.createElement('LABEL');
+	                label.style.whiteSpace = 'nowrap';
+	                label.style.fontFamily = 'Arial';
+	                label.style.fontSize = '8pt';
+	                label.style.color = '#3e6aaa';
+	                	            
+	                var elem = _sender.ownerDocument.createElement('INPUT');
+	                elem.type = 'checkbox';
+	                elem.id = 'btnSelectAll';
+	                elem.value = 1;
+	                elem.className = 'ribbonInput';
+	                elem.style.width = '22px';
+	                elem.onclick = SelectAllClicked;
+	                
+	                var txt = _sender.ownerDocument.createTextNode('Select All');
+	                label.appendChild(elem);
+	                label.appendChild(txt);
+                
+	                _sender.appendChild(label);
+	                
+	                elem.checked = btnSelAll.checked;
+	            break;*/
+	        }
+	    }
+	    
+	    /*function SelectAllClicked() {
+	        btnSelAll.checked = document.getElementById('btnSelectAll').checked;
+	        
+	        if (btnSelAll.checked) {
+	            objEditor.selectAll();
+	            if (objEditor.selection.length > 0) {
+	                iFr.focus();
+	                iDoc.body.focus();
+	                objEditor.selection.items[0].elem.focus();
+	            }
+	        }
+	        else {
+	            objEditor.selection.clear();
+	        }
+	    }*/
+	    
+	    function SelectAll(_value) {
+	        objEditor.selectAll();
+            if (objEditor.selection.length > 0) {
+                iFr.focus();
+                iFr.contentWindow.focus();
+                iDoc.focus();
+                iDoc.body.focus();
+                objEditor.selection.items[0].elem.focus();
+            }
+	    }
+
+        
+        function getFileTabXML()
+	    {
+		    try
+		    {
+			    var xmlProcess = '<module><name>File</name>'; 
+                    xmlProcess += '<process><id>load</id><name>Load</name><src>loadVML()</src><icon>open</icon></process>';
+                    xmlProcess += '<process><id>save</id><name>Save</name><src>saveVML()</src><icon>save</icon></process>';
+                    xmlProcess += '<process><id>save-img</id><name>Save image-based document</name><src>saveIMGVML()</src><icon>save</icon></process>';
+			    xmlProcess += '</module>';
+			    return xmlProcess;
+		    }
+		    catch( exception )
+		    {}
+	    }
+	    
+	    function getEditTabXML()
+	    {
+		    try
+		    {
+			    // var xmlProcess = '<module minsize="3"><name>Input</name><id>inputGroup</id>';
+			    var xmlProcess = '<module minsize="1"><name>Input</name><id>inputGroup</id>';
+			    xmlProcess += '<process><id>clone</id><name>Clone</name><src>CloneInput()</src><icon>clone</icon></process>';
+			    xmlProcess += '<process><id>del</id><name>Delete</name><src>DeleteInputs()</src><icon>del</icon></process>';
+			    xmlProcess += '</module>';
+			    
+		        // xmlProcess += '<module minsize="2"><name>Align</name><id>alignGroup</id>';
+		        xmlProcess += '<module minsize="1"><name>Align</name><id>alignGroup</id>';
+                xmlProcess += '<process><id>left</id><name>Left</name><src>AlignLeft()</src><icon>align-left</icon></process>';
+                xmlProcess += '<process><id>right</id><name>Right</name><src>AlignRight()</src><icon>align-right</icon></process>';
+                xmlProcess += '<process><id>top</id><name>Top</name><src>AlignTop()</src><icon>align-top</icon></process>';
+                xmlProcess += '<process><id>bottom</id><name>Bottom</name><src>AlignBottom()</src><icon>align-bottom</icon></process>';
+		        xmlProcess += '</module>';
+		    
+		        // xmlProcess += '<module minsize="2"><name>Resize</name><id>resizeGroup</id>';
+		        xmlProcess += '<module minsize="1"><name>Resize</name><id>resizeGroup</id>';
+                xmlProcess += '<process><id>width</id><name>Same width</name><src>SameWidth()</src><icon>resize-width</icon></process>';
+                xmlProcess += '<process><id>height</id><name>Same height</name><src>SameHeight()</src><icon>resize-height</icon></process>';
+		        xmlProcess += '</module>';
+		        
+		        // xmlProcess += '<module minsize="2" maxsize="2"><name>Selection</name><id>idGroup</id>';
+		        xmlProcess += '<module minsize="1" maxsize="2"><name>Selection</name><id>idGroup</id>';
+                xmlProcess += '<process><id>selectAll</id><name>Select All</name><src>SelectAll()</src><icon>clone</icon></process>';
+                xmlProcess += '</module>';
+		        
+		        // xmlProcess += '<module minsize="2" maxsize="2"><name>ID</name><id>idGroup</id>';
+		        xmlProcess += '<module minsize="1" maxsize="3"><name>ID</name><id>idGroup</id>';
+                xmlProcess += '<process custom="true" onDraw="ctrlDraw"><id>'+ ccID +'</id></process>';
+                xmlProcess += '<process custom="true" onDraw="ctrlDraw"><id>'+ ccFmla +'</id></process>';
+                xmlProcess += '<process custom="true" onDraw="ctrlDraw"><id>'+ findID +'</id></process>';
+                xmlProcess += '<process custom="true" onDraw="ctrlDraw"><id>' + ccEmpty + '</id></process>';
+			    xmlProcess += '<process><id>updateID</id><name>Update</name><help>Update input ID</help><src>SetInputID()</src><icon>update</icon></process>';
+			    xmlProcess += '<process><id>updateFml</id><name>Update</name><help>Update input formula</help><src>SetFormula()</src><icon>update</icon></process>';
+			    xmlProcess += '<process><id>findID2</id><name>Find</name><help>Find input ID</help><src>FindInput()</src><icon>search</icon></process>';
+			    xmlProcess += '</module>';
+
+
+			    return xmlProcess;
+		    }
+		    catch( exception )
+		    {}
+	    }
+	     function getFindTabXML()
+	    {
+		    try
+		    {
+		    
+		      var xmlProcess = '<module><name>Find input</name>'; 
+                    xmlProcess += '<process custom="true" onDraw="ctrlDraw"><id>'+ findID +'</id></process>';
+                    xmlProcess += '<process><id>findID2</id><name>Find</name><help>Find input ID</help><src>FindInput()</src><icon>search</icon></process>';
+			    xmlProcess += '</module>';
+			    return xmlProcess;
+		    
+		    
+		    }
+		    catch( exception )
+		    {}
+	    }
+	    
+	    function FindInput(){
+			objEditor.findInput();
+	    }  
+	    
+        function loadVML() {
+            LoadFile();
+        }
+        
+        function saveVML() {
+            SaveDocument(0);
+        }
+        
+        function saveIMGVMLFile(_path, _imgVer, _from, _to) {
+            var elems = [];
+            var div = null;
+            
+            //find the main DIV element
+            for (var i = 0; i < iDoc.body.childNodes.length && div == null; i++) {
+                if (iDoc.body.childNodes[i].tagName == 'DIV')
+                    div = iDoc.body.childNodes[i];
+            }
+            
+            if (div == null) {
+                alert('Invalid document! Main div not found.');
+                return false;
+            }
+            
+            //remove page-break-after
+            div.style.pageBreakAfter = '';
+        
+
+            //get list of inputs and extensions
+            var inputs = docUtils.getInputs(iDoc, false);
+            var extensions = docUtils.getExtensions(iDoc);
+            
+            //remove all from document
+            while (div.childNodes.length > 0) {
+                div.removeChild(div.childNodes[0]);
+            }
+            
+            //put the inputs and extensions back
+            docUtils.appendElements(div, inputs);
+            docUtils.appendElements(div, extensions);
+            
+            //put the image
+            var img = iDoc.createElement('IMG');
+            img.id = 'docBk';
+            img.style.width = div.style.width;
+            img.style.height = div.style.height;
+            img.style.position = 'absolute';
+            img.style.top = '0';
+            img.style.left = '0';
+            img.style.zIndex = -1;
+            img.width = div.offsetWidth;
+            img.height = div.offsetHeight;
+            
+            div.appendChild(img);
+            if (_from == null) {
+                img.src = 'etatfi-CERFA/' + _imgVer + '/' + document.title.replace(/(_0)?\.html/i, '.jpg');
+                StoreImgDOC(_path + '\\' + document.title);
+            }
+            else {
+                for (var i = _from; i <= _to; i++) {
+                    imgName = 'etatfi-CERFA/' + _imgVer + '/' + document.title.replace(/(_0)?\.html/i, '');
+                    img.src = imgName + '_' + i + '.jpg';
+                    StoreImgDOC(_path + '\\' + document.title.replace(/(_[0-9])?\.html/i, '_' + i + '.html'));
+                }
+            }            
+        }
+        
+        function StoreImgDOC(_fname) {
+            // var docText = objEditor.getDocumentText();
+                        
+            // var f = fso.CreateTextFile(_fname, true);
+            // f.Write(docText);
+            // f.Close();
+        }
+                
+        function saveIMGVML() {
+            try {
+                var args = new Object();
+                args.range = new Object();
+                args.imgVer = '';
+                args.text = translate('Please enter image version: ');
+                args.error = false;
+                args.errorMsg = '';
+                
+                if (window.showModalDialog('input.html', args, 'scroll: no; status: no; dialogWidth: 200px; dialogHeight: 120px;')) {
+                    if (args.error == false) {
+                        var path = dirUtils.BrowseForFolder();
+                        if (args.range.from != 0 && args.range.to != 0) {
+                            if (args.range.from > args.range.to) {
+                                alert('Invalid range!');
+                                return false;
+                            }
+                            if (path != '') {
+                                saveIMGVMLFile(path, args.imgVer, args.range.from, args.range.to);
+                            }
+                        }
+                        else
+                            saveIMGVMLFile(path, args.imgVer);
+                    }
+                    else {
+                        alert('ERROR!\n' + args.errorMsg);
+                        return false;
+                    }
+                }
+            }
+            catch (e) {
+                alert('Error processing the document. Cannot save image-based version.');
+                return false;
+            }
+            
+            //SaveDocument(1);
+        }
+        
+        function iFrLoaded() {
+            iDoc = iFr.contentWindow.document;
+            iDoc.onmousedown = Ribbon_handleClick;
+            DoResize();
+            
+            if (iFr.src == '' || iFr.src == 'about:blank') return;
+            ProcessDocument();
+        }
+        
+        function ProcessDocument() {
+            try {
+                objEditor.setIFrame(iFr);
+                
+                var inputs = docUtils.getInputs(iDoc, true);
+                var i;
+                for (i = 0; i < inputs.length; i++) {
+                    if (inputs[i].className != '')
+                        inputs[i].className += ' input';
+                    else
+                        inputs[i].className = 'input';
+                        
+                    if (inputs[i].id.indexOf('*') > -1) {
+                        //extension input. adding a position: absolute to the element's style
+                        inputs[i].style.position = 'absolute';
+                        
+                        //setting position: relative to element's parent
+                        var parent = inputs[i].parentElement;
+                        while (parent != null && parent.tagName != 'TD') {
+                            parent = parent.parentElement;
+                        }
+                        
+                        if (parent != null) {
+                            parent.style.position = 'relative';
+                        }
+                    }
+                      
+                    //assign mouse events
+                    inputs[i].onmousedown = function() { inputMouseDown(this); };
+                    inputs[i].onmouseup = function() { inputMouseUp(this); };
+                    inputs[i].onmousemove = function() { inputMouseMove(this); };
+                }
+                
+                /*//process extension's text
+                var extensions = docUtils.getExtensions(iDoc);
+                for (i = 0; i < extensions.length; i++) {
+                    var spans = extensions[i].getElementsByTagName('SPAN');
+                    for (var j = 0; j < spans.length; j++) {
+                        //if (spans[j].className != '')
+                        //    spans[j].className += ' input';
+                        //else
+                        //    spans[j].className = 'input';
+                            
+                            
+                        //assign mouse events
+                        spans[j].onmousedown = function() { inputMouseDown(this); };
+                        spans[j].onmouseup = function() { inputMouseUp(this); };
+                        spans[j].onmousemove = function() { inputMouseMove(this); };
+                    }
+                }*/
+            }
+            catch (e) {
+            }
+        }
+        
+        function AlignLeft() {
+            var i;
+            for (i = 0; i < objEditor.selection.items.length; i++) {
+                if (objEditor.selection.items[i].elem != objEditor.resizer.elem) {
+                    objEditor.moveElement(objEditor.selection.items[i].elem, objEditor.resizer.elem.offsetLeft, objEditor.selection.items[i].elem.offsetTop);
+                }
+            }
+        }
+        
+        function AlignTop() {
+            var i;
+            for (i = 0; i < objEditor.selection.items.length; i++) {
+                if (objEditor.selection.items[i].elem != objEditor.resizer.elem) {
+                    objEditor.moveElement(objEditor.selection.items[i].elem, objEditor.selection.items[i].elem.offsetLeft, objEditor.resizer.elem.offsetTop);
+                }
+            }
+        }
+        
+        function SameWidth() {
+            var i;
+            for (i = 0; i < objEditor.selection.items.length; i++) {
+                if (objEditor.selection.items[i].elem != objEditor.resizer.elem) {
+                    objEditor.resizeElement(objEditor.selection.items[i].elem, objEditor.resizer.elem.offsetWidth, objEditor.selection.items[i].elem.offsetHeight);
+                }
+            }
+        }
+        
+        function SameHeight() {
+             var i;
+            for (i = 0; i < objEditor.selection.items.length; i++) {
+                if (objEditor.selection.items[i].elem != objEditor.resizer.elem) {
+                    objEditor.resizeElement(objEditor.selection.items[i].elem, objEditor.selection.items[i].elem.offsetWidth, objEditor.resizer.elem.offsetHeight);
+                }
+            }
+        }
+        
+        function DistributeHorizontally() {
+            objEditor.distributeHorizontally();
+        }
+        
+        function DistributeVertically() {
+            objEditor.distributeVertically();
+        }
+        
+        function Undo() {
+            objEditor.undoProvider.Undo();
+        }
+        
+        function Redo() {
+            objEditor.undoProvider.Redo();
+        }
+        
+        function AlignRight() {
+            objEditor.alignRight();
+        }
+        
+        function AlignBottom() {
+            objEditor.alignBottom();
+        }
+        
+        function SetInputID() {
+            objEditor.setInputID();
+        }
+        
+        function SetFormula() {
+            objEditor.setInputFormula();
+        }
+        
+        function CloneInput() {
+            objEditor.cloneInput();
+        }
+        
+        function DeleteInputs() {
+            if (objEditor.selection.items.length > 0) {
+                if (window.showModalDialog('confirmation.html', translate('Are you sure you want to delete the selected input(s)?'), 'scroll: no; status: no; dialogWidth: 350px; dialogHeight: 100px;') == "1") {
+                    if (objEditor.resizer != null) {
+                        objEditor.resizer.destructor();
+                        objEditor.resizer = null;
+                    }
+                    
+                    while (objEditor.selection.items.length > 0) {
+                        objEditor.selection.items[0].elem.parentElement.removeChild(objEditor.selection.items[0].elem);
+                        objEditor.selection.remove(objEditor.selection.items[0].elem);
+                    }
+                }
+            }
+        }
+        
+        function documentOnSelectStart()
+	    {
+		    if (window.event.srcElement.tagName != "INPUT" &&
+				    window.event.srcElement.tagName != "TEXTAREA")
+			    window.event.returnValue = false;
+	    }
+	    
+	    function SaveSettings() {
+	        // SaveRecentDocs();
+	    }
+	    
+	    function OpenIFrame(_src) {
+	        var parent = iFr.parentElement;
+	        parent.removeChild(iFr);
+	        iFr = document.createElement('<IFRAME onload="iFrLoaded()"></IFRAME>');
+	        iFr.id = 'iFr';
+	        iFr.width = '100%';
+	        iFr.height = '100%';
+	        iFr.frameBorder = 0;
+	        iFr.src = _src;
+	        parent.appendChild(iFr);        
+	    }
+    </script>
+
+</head>
+<body onload="initApp()"  onselectstart="documentOnSelectStart()" onbeforeunload="SaveSettings()">
+
+<div style="width:100%;height:100%">
+    <div id="ribbon">
+    </div> 
+    <iframe onload="iFrLoaded()" id="iFr" width="100%" height="100%" frameborder="0" src="about:blank"></iframe>
+    <script type="text/javascript">
+        iFr = document.getElementById('iFr');
+    </script>
+</body>
+</html>

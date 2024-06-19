@@ -1,0 +1,160 @@
+TR{}
+.popUpChildMenu{
+	cursor:default;
+/*	border:2px outset #EBEBEB;*/
+	border:1px solid gray; /* //NC 2007-05-11 */
+	position:absolute;
+	background-color:#EBEBEB;
+}
+.popUpMenuItemOff
+{
+	cursor:default;
+	height:18px;	
+}
+.popUpMenuItemOn
+{
+	cursor:default;
+	height:20px;	
+}
+.menuItemOff
+{
+	cursor:default;
+	height:20px;	
+}
+.menuItemOn
+{
+	cursor:default;
+	height:20px;	
+}
+DIV{}
+.popUpMenu{  
+	cursor:hand;
+	display:none;
+	position:absolute;
+	background-color:#EBEBEB;
+/*	border:2px outset #EBEBEB;*/
+	border:1px solid gray; /* //NC 2007-05-11 */
+	padding: 2px 0px 1px 0px;
+
+}
+TD IMG{}
+.popUpMenuItemOff
+{
+	cursor:default;
+	width:16px;
+	height:16px;	
+}
+.popUpMenuItemOn
+{
+	cursor:default;
+	width:16px;
+	height:16px;	
+}
+.popUpMenuItemOff
+{
+	cursor:default;
+	height:20px;
+	background-color:#EBEBEB;
+	color:menutext;
+}
+.popUpMenuItemOn
+{
+	cursor:default;
+	height:20px;
+	/*background-color:#003366;
+	color: highlighttext;*/
+}
+
+.menuItemSeparator
+{
+	cursor:default;
+	/*height:18px;*/
+	
+	/**** //NC 2007-05-11 ****/
+	height: 2px; 
+	line-height: 2px;
+}
+.menuItemOff
+{
+	cursor:default;
+	height:20px;
+	background-color:#EBEBEB;
+	color:menutext;
+}
+.menuItemOn
+{
+	cursor:default;
+	height:20px;
+	background-color:#003366;
+	color:highlighttext;
+}
+SPAN{}
+.txtCell
+{
+	padding: 0px 5px;
+}
+.imgCell 
+{
+	background-color: #E9EEEE;
+	padding: 2px 2px 1px 2px;
+	border: none;
+	border-right: 1px solid #C5C5C5;
+}
+.popUpMenuItemOff{
+	/*background-color:#EBEBEB; //NC 2007-05-11*/
+	background-color: White;
+	color:menutext;
+}
+.popUpMenuItemOn{
+	/*background-color:highlight; //NC 2007-05-11*/
+	background-image: url(../graphics/skins/blue/menuItem_hot.gif);
+	background-repeat: repeat-x;
+	/*color:highlighttext;*/
+	color: black;	
+}
+.popUpMenuItemOn .imgCell 
+{
+	border: none;
+	padding-right: 3px;
+}
+.menuItemSeparator .imgCell 
+{
+	height: 1px;
+	line-height: 1px;
+	margin: 0;
+	padding: 0;
+}
+
+.menuItemSeparator .txtCell 
+{
+	height: 1px;
+	line-height: 1px;
+	margin: 0;
+	padding: 0;
+	background-color: White;
+}
+.menuItemSeparator TD 
+{
+	background-color: White;
+}
+.menuItemOff{
+	background-color:#EBEBEB;
+	color:menutext;
+}
+.menuItemOn{
+	background-color:highlight;
+	color:highlighttext;
+}
+TD.imgCell 
+{
+	background-color: #E9EEEE;
+}
+
+.imgCell span 
+{
+    display: block;
+}
+.popUpMenu, .popUpMenu *
+{
+	font:normal 11px verdana,arial,helvetica;
+}

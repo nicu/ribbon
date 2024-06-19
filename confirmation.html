@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Confirmation</title>
+    <style type="text/css">
+        body
+        {
+            background-color: threedface;
+        }
+        
+        table#layout 
+        {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #img
+        {
+            width: 45px;
+            height: 45px;
+        }
+        
+        #txt 
+        {
+            text-align: justify;
+            vertical-align: middle;
+        }
+        
+        #txt, input 
+        {
+            font-family: Arial;
+            font-size: 12px;
+        }
+        
+        #btns 
+        {
+            height: 32px;
+            text-align: center;
+        }
+        
+        #btns input 
+        {
+            height: 26px;
+        }
+    </style>
+    
+    <script type="text/javascript">
+        function dlgLoad() {
+            var text = window.dialogArguments;
+            var txt = document.getElementById('txt');
+            txt.innerHTML = text;
+            window.returnValue = "0";
+        }
+        
+        function CloseWindow() {
+            var elem = window.event.srcElement;
+            window.returnValue = elem.returnValue;
+            window.close();
+        }
+    </script>
+</head>
+<body onload="dlgLoad()">
+    <table id="layout">
+        <tr>
+            <td id="img">
+                <img src="graphics/confirmation.gif" width="43" height="42" />
+            </td>
+            <td id="txt">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="btns">
+                <input type="button" id="btnYes" value=" Yes " returnValue="1" onclick="CloseWindow()" />
+                <input type="button" id="btnNo" value=" No " returnValue="0" onclick="CloseWindow()" />
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

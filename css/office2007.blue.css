@@ -1,0 +1,942 @@
+body 
+{
+	margin: 0px;
+	padding: 0;
+	overflow: hidden;
+	/*background-color: #97B7E1;*/
+	background-color: White;
+	height: 100%;
+}
+
+#ribbon 
+{
+	height: 146px;
+	-moz-user-select: none;
+	width: 100%;
+	overflow: hidden;
+	background-image: url(../graphics/skins/blue/ribbon-preload.jpg);
+	background-repeat: repeat-x;
+}
+
+
+.mainMenu, .mainMenu_hot, .mainMenu_down {
+	position: absolute;
+	top: 4px;
+	left: 6px;
+	width: 41px;
+	height: 41px;
+	background-image: url(../graphics/skins/blue/mainMenu.gif);
+	background-repeat: no-repeat;
+	z-index: 5;
+}
+
+.mainMenu_hot {
+    background-image: url(../graphics/skins/blue/mainMenu_hot.gif);
+}
+
+.mainMenu_down {
+    background-image: url(../graphics/skins/blue/mainMenu_down.gif);
+}
+
+	#mainMenuLogo 
+	{
+		width: 26px;
+		height: 26px;
+		margin: 7px 0 0 7px;
+	}
+
+#appBar {
+	background-image: url(../graphics/skins/blue/appBar.gif);
+	background-repeat: repeat-x;
+	overflow: hidden;
+	width: 100%;
+	height: 30px
+}
+
+#appBarMainMenu
+{
+	width: 40px;
+	height: 30px;
+	float: left;
+}
+
+#appBarText
+{
+	text-align: center; 
+	white-space: nowrap;
+	font-family: Verdana;
+	font-size: 13px;
+	padding-top: 6px;
+	overflow: hidden;
+	width: 100%; /* //NC 2007-10-13 */
+	position: absolute;
+}
+
+    #ribbonTableText {
+        border: none;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    #titleBarText, #titleBarUsers {
+        text-align: center;
+        white-space: nowrap;
+    }
+    
+    #titleBarText {
+        width: 90%;
+    }
+    
+    #titleBarUsers {
+        width: 10%;
+    }
+
+
+#quickAccessLeft
+{
+	width: 16px;
+	height: 30px;
+	overflow: hidden;
+	background: url(../graphics/skins/blue/quickAccess_left.gif) no-repeat;
+	float: left;
+}
+
+#quickAccessContent
+{
+	height: 30px;
+	background: url(../graphics/skins/blue/quickAccessButton.gif) repeat-x;
+	float: left;
+}
+
+.quickAccessButton
+{
+	width: 21px;
+	height: 30px;
+	overflow: hidden;
+	float: left;
+}
+
+
+#quickAccessContent, #quickAccessContent * {
+	cursor: default;
+}
+
+.quickAccessButton img
+{
+	margin-left: 0px;
+	margin-top: 4px;
+	width: 20px;
+	height: 20px;
+}
+
+.quickAccessButton_hover
+{
+	width: 21px;
+	height: 30px;
+	background: url(../graphics/skins/blue/quickAccessButton_hot.gif) no-repeat;
+	float: left;
+}
+
+.quickAccessButton_hover img {
+	margin-left: 0px;
+	margin-top: 4px;
+}
+
+.quickAccessButton_down img
+{
+	margin-left: 0px;
+	margin-top: 5px;
+}
+
+.quickAccessButton_down
+{
+	width: 21px;
+	height: 30px;
+	background: url(../graphics/skins/blue/quickAccessButton_down.gif) no-repeat;
+	float: left;
+}
+
+#quickAccessRight
+{
+	width: 10px;
+	height: 30px;
+	background: url(../graphics/skins/blue/quickAccess_right.gif) no-repeat;
+	float: left;
+}
+
+.quickAccessCustomizeButton, .quickAccessCustomizeButton_hover, .quickAccessCustomizeButton_down {	
+	background: url(../graphics/skins/blue/quickAccessCustomizeButton.gif) no-repeat;	
+	float: left;	
+	margin-left: 4px;	
+	width: 13px;	
+	height: 30px
+}
+
+.quickAccessCustomizeButton_hover {	
+	background: url(../graphics/skins/blue/quickAccessCustomizeButton_hot.gif) no-repeat;	
+}
+
+.quickAccessCustomizeButton_down {	
+	background: url(../graphics/skins/blue/quickAccessCustomizeButton_down.gif) no-repeat;	
+}
+
+
+#tabStripScrollLeft, .tabScrollLeft, .tabScrollLeft_hot, .tabScrollLeft_down {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	width: 13px;
+	height: 22px;
+	background-image: url(../graphics/skins/blue/tabScrollLeft.gif);
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+#tabStripScrollRight, .tabScrollRight, .tabScrollRight_hot, .tabScrollRight_down {
+	position: absolute;
+	right: -1px;
+	top: 0;
+	display: none;
+	width: 13px;
+	height: 22px;
+	background-image: url(../graphics/skins/blue/tabScrollRight.gif);
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.tabScrollRight, .tabScrollRight_hot, .tabScrollRight_down { 
+    right: -1px;
+}
+.tabScrollLeft, .tabScrollRight, .tabScrollLeft_hot, .tabScrollRight_hot, .tabScrollLeft_down, .tabScrollRight_down { 
+    height: 20px;
+}
+
+#tabStripScrollLeft.hot, #tabStripScrollRight.hot, .tabScrollLeft_hot, .tabScrollRight_hot
+{
+	background-position: 0px -23px;
+}
+
+#tabStripScrollLeft.down, #tabStripScrollRight.down, .tabScrollLeft_down, .tabScrollRight_down 
+{
+	background-position: 0px -46px;
+}
+
+#tabStrip {
+	position: relative;
+	background: url(../graphics/skins/blue/tabStripBackground.gif) #bfdbff repeat-x left top;	
+	font: 12px Arial, Verdana, Sans-serif;	
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	padding-left: 50px;
+	overflow: hidden;
+}
+
+#tabContainer {
+	margin: 0px 0px;
+}
+
+
+#tabStripScroll {
+	position: relative;
+	text-align: left;
+	width: 100%;
+}
+
+#tabContainer #tabs {
+	height: 23px;
+	position: relative;
+}
+
+#tabContainer #tabs * {
+    cursor: default;
+}
+
+#tabContainer #tabs td {
+	margin: 0px;
+	padding: 3px 0px 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+#tabContainer #tabs td span {
+	height: 100%;
+}
+
+html>body #tabContainer #tabs td span {
+	display: block;
+}
+
+#tabContainer #tabs td a {
+	text-decoration: none;
+	color: #15428b;
+
+	margin: 0px 5px;
+	padding: 3px 10px;
+	height: 100%;
+}
+
+html>body #tabContainer #tabs td a {
+	display: block;
+}
+
+#tabContainer #tabs td.selected {
+	background-image: url(../graphics/skins/blue/ribbonTabRight.jpg);
+	background-repeat: no-repeat;
+	background-position: right 3px;
+}
+	
+#tabContainer #tabs td.selected span {
+	background-image: url(../graphics/skins/blue/ribbonTabLeft.jpg);
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+	
+#tabContainer #tabs td.selected a {
+	background-image: url(../graphics/skins/blue/ribbonTab.jpg);
+	background-repeat: repeat-x;
+}
+
+#tabScroll {
+	width: 100%;
+	overflow: hidden; 
+	position: relative;
+}
+
+#tabs * 
+{
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#ribbonBar {
+	background: url(../graphics/skins/blue/ribbonBar.gif) repeat-x;	
+	overflow: hidden;
+	position: relative;
+	height: 93px;
+	cursor: default;
+}
+
+#ribbonBar * {
+	cursor: default;
+}
+
+#ribbonBarScrollLeft {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 13px;
+	background-color: red;
+	height: 90px;
+	display: none;
+	background: url(../graphics/skins/blue/ribbonScrollLeft.gif) no-repeat top left;
+}
+
+#ribbonBarScrollLeft.hot {
+	background-position: 0px -93px;
+}
+
+#ribbonBarScrollRight {
+	position: absolute;
+	right: -1px;
+	top: 0;	
+	width: 13px;
+	background-color: red;
+	height: 90px;
+	display: none;
+	background: url(../graphics/skins/blue/ribbonScrollRight.gif) no-repeat top left;
+}
+
+#ribbonBarScrollRight.hot {
+	background-position: 0px -93px;
+}
+
+#ribbonPageContainer {
+	margin: 0px;
+	overflow: hidden;
+	position: relative;
+}
+
+.ribbonPage {
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.ribbonPageTbl {
+	position: relative;
+	overflow: hidden;
+}
+
+.ribbonGroup, .ribbonGroup_hot {
+	height: 85px;
+	background: url(../graphics/skins/blue/ribbonGroup.gif) repeat-x 0px 0px;
+	margin: 3px;
+	overflow: hidden;
+}
+
+.ribbonGroup_hot {
+	background-position: 0px -85px;
+}
+
+.ribbonGroupLeft {
+	background-image: url(../graphics/skins/blue/ribbonGroup_left.gif);
+	background-repeat: no-repeat;
+	width: 3px;
+	height: 85px;
+}
+
+.ribbonGroupRight {
+	background-image: url(../graphics/skins/blue/ribbonGroup_right.gif);
+	background-repeat: no-repeat;
+	width: 2px;
+	height: 85px;
+}
+
+.ribbonGroup .ribbonGroupLeft {
+	background-position: 0px 0px;
+}
+
+.ribbonGroup_hot .ribbonGroupLeft {
+	background-position: 0px -85px;
+}
+
+.ribbonGroup .ribbonGroupRight {
+	background-position: 2px 0px;
+}
+
+.ribbonGroup_hot .ribbonGroupRight {
+	background-position: 2px -85px;
+}
+
+.ribbonGroupContent {
+	white-space: nowrap;
+}
+
+table.ribbonGroup .hot {
+}
+
+.ribbonGroupTable {
+	height: 100%;
+}
+
+.ribbonGroupTableContent {
+	height: 68px; /*** originalul era 70px ***/
+	overflow: hidden;
+	text-align: center;
+}
+
+.ribbonGroupTableText {
+	height: 15px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	text-align: center;
+	cursor: default;
+	white-space: nowrap;
+}
+
+.rbnLargeButton, .rbnLargeButton_hot, .rbnLargeButton_down {
+	height: 70px;
+	margin: 0px; /*** original: 2px 1px auto auto; ***/
+	overflow: hidden;
+	padding: 0px;
+	cursor: default;
+}
+
+.rbnLargeButton_left, .rbnLargeButton_right {
+	width: 2px;
+}
+
+.rbnLargeButton_left {
+}
+
+.rbnLargeButton_right {
+}
+
+.rbnLargeButton_content {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: center;
+	width: 100%;
+	background-image: url(../graphics/skins/blue/btnLarge.gif);
+	background-repeat: repeat-x;
+	background-position: 0px 0px;
+	height: 63px;
+}
+
+.rbnLargeButton_left {
+	background-image: url(../graphics/skins/blue/btnLarge_left.gif);
+	background-repeat: no-repeat;
+	background-position: 2px 0px;
+}
+
+.rbnLargeButton_right {
+	background-image: url(../graphics/skins/blue/btnLarge_right.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+
+.rbnLargeButton_hot .rbnLargeButton_content {
+	background-position: 0px -70px;
+}
+
+.rbnLargeButton_down .rbnLargeButton_content {
+	background-position: 0px -140px;
+}
+
+.rbnLargeButton_hot .rbnLargeButton_left {
+	background-position: 2px -70px;
+}
+
+.rbnLargeButton_down .rbnLargeButton_left {
+	background-position: 2px -140px;
+}
+
+.rbnLargeButton_hot .rbnLargeButton_right {
+	background-position: 0px -70px;
+}
+
+.rbnLargeButton_down .rbnLargeButton_right {
+	background-position: 0px -140px;
+}
+
+.rbnLargeButtonImage {
+	height: 32px;
+	padding: 2px 5px 0px 5px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.rbnLargeButtonText 
+{
+	font-weight: normal;	
+	font-size: 8pt;	
+	color: #3e6aaa;	
+	font-family: Arial;	
+	white-space: normal;
+	height: 31px;
+	/*text-align: center;*/
+	position: relative;
+	overflow: hidden;
+}
+
+* html .rbnLargeButtonText {
+	/*overflow: hidden;*/
+}
+
+.rbnMediumButton, .rbnMediumButton_hot, .rbnMediumButton_down {
+	height: 22px;
+}
+
+.rbnMediumButton_content {
+	text-align: left;
+	vertical-align: middle;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 6pt;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	background-image: url(../graphics/skins/blue/btnSmall.gif);
+	background-repeat: repeat-x;
+	background-position: 0px 0px; 
+}
+
+.rbnMediumButton_hot .rbnMediumButton_content {
+	background-position: 0px -22px;
+}
+
+.rbnMediumButton_down .rbnMediumButton_content {
+	background-position: 0px -44px;
+}
+
+.rbnMediumButton_left {
+	background-image: url(../graphics/skins/blue/btnSmall_left.gif);
+	background-repeat: no-repeat;
+	background-position: 2px 0px; 
+}
+
+.rbnMediumButton_hot .rbnMediumButton_left {
+	background-position: 2px -22px;
+}
+
+.rbnMediumButton_down .rbnMediumButton_left {
+	background-position: 2px -44px;
+}
+
+.rbnMediumButton_right {
+	background-image: url(../graphics/skins/blue/btnSmall_right.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px; 
+}
+
+.rbnMediumButton_hot .rbnMediumButton_right {
+	background-position: 0px -22px;
+}
+
+
+.rbnMediumButton_down .rbnMediumButton_right {
+	background-position: 0px -44px;
+}
+
+
+.rbnMediumButtonImage {	
+	text-align: left;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+
+.rbnMediumButtonText {	
+	font-weight: normal;
+	font-size: 8pt;
+	overflow: hidden;
+	color: #3e6aaa;
+	text-align: left;
+	vertical-align: middle;
+	font-family: arial;
+	white-space: nowrap;
+	height: 22px;
+	margin: 0;
+	padding: 0 3px 0 0;
+	cursor: default;
+}
+
+.rbnSmallButton_content {
+	text-align: left;
+	vertical-align: middle;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 6pt;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	background-image: url(../graphics/skins/blue/btnSmall.gif);
+	background-repeat: repeat-x;
+	background-position: 0px 0px; 
+}
+
+.rbnSmallButton, .rbnSmallButton_hot, .rbnSmallButton_down {
+	height: 22px;
+}
+
+.rbnSmallButton_hot .rbnSmallButton_content {
+	background-position: 0px -22px;
+}
+
+.rbnSmallButton_down .rbnSmallButton_content {
+	background-position: 0px -44px;
+}
+
+.rbnSmallButton_left {
+	background-image: url(../graphics/skins/blue/btnSmall_left.gif);
+	background-repeat: no-repeat;
+	background-position: 2px 0px; 
+}
+
+.rbnSmallButton_hot .rbnSmallButton_left {
+	background-position: 2px -22px;
+}
+
+.rbnSmallButton_down .rbnSmallButton_left {
+	background-position: 2px -44px;
+}
+
+.rbnSmallButton_right {
+	background-image: url(../graphics/skins/blue/btnSmall_right.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px; 
+}
+
+.rbnSmallButton_hot .rbnSmallButton_right {
+	background-position: 0px -22px;
+}
+
+
+.rbnSmallButton_down .rbnSmallButton_right {
+	background-position: 0px -44px;
+}
+
+.rbnSmallButtonImage {	
+	text-align: left;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+
+.rbnSmallButtonText {	
+	font-weight: normal;
+	font-size: 8pt;
+	overflow: hidden;
+	color: #3e6aaa;
+	text-align: left;
+	vertical-align: middle;
+	font-family: arial;
+	white-space: nowrap;
+	height: 22px;
+	margin: 0;
+	padding: 0;
+	cursor: default;
+}
+
+.rbnSeparator {
+	width: 2px;
+	height: 68px;
+	background: url(../graphics/skins/blue/ribbonSeparator.gif) no-repeat top left;
+}
+
+table.rbnGroupX3 {
+	text-align: left;
+/*	height: 70px;*/
+	border-collapse: collapse;
+}
+
+td.rbnGroupX3TD {
+	overflow: hidden;
+}
+
+.rel {
+	position: relative;
+}
+
+.shortCutPanel {
+	display: none;
+	position: relative;
+	height: 0px;
+}
+
+.shortCut {
+	position: absolute;
+	padding-top: 1px;
+	background-image: url(../graphics/skins/blue/shortcutbgrnd.gif);
+	background-repeat: no-repeat;
+	background-position: top left;
+	width: 16px;
+	height: 16px;
+	text-align: center;
+	vertical-align: middle;
+	
+	top: -12px; 
+	left: 35%; 
+}
+
+.shortCutEnabled .shortCutPanel {
+	display: block;
+}
+
+#prerender {
+	/*position: absolute;
+	top: -200px;*/
+	position: absolute; 
+	top: 0px; 
+	left: -1000px;
+	width: 1px;
+	height: 1px;
+}
+
+.largeBtnArrow, .mediumBtnArrow 
+{
+	background-image: url(../graphics/skins/blue/dropDownMenuArrow.gif);
+	background-repeat: no-repeat;
+	height:4px;
+	line-height: 4px;
+	position: relative;
+	width:5px;
+}
+
+.largeBtnArrow 
+{
+	background-position: bottom;
+}
+
+.mediumBtnArrow 
+{
+	background-position: center;
+	padding: 0px 2px;
+}
+
+/************************************************************************************/
+/* TABS																				*/
+/************************************************************************************/
+.tabMainDivCell{
+	border: none;
+}
+
+.officeTab 
+{
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.officeTabLeft .sizeDivL 
+{
+	width: 20px;
+	height: 20px;
+}
+
+.officeTabRight .sizeDivR 
+{
+	width: 2px;
+	height: 20px;
+}
+
+.tabBottom .officeTab 
+{
+	background-image: url(../graphics/office-tab-bgrnd.gif);
+	background-repeat: repeat-x;
+}
+
+.tabSelectedBottom .officeTab 
+{
+	background-image: url(../graphics/office-tab-bgrnd-selected.gif);
+	background-repeat: repeat-x;
+}
+
+.tabBottom .officeTabLeft 
+{
+	background-image: url(../graphics/office-tab-left.gif);
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+}
+
+.officeTabRight 
+{
+	background-image: url(../graphics/office-tab-right.gif);
+	background-repeat: no-repeat;
+	width: 2px;
+	height: 20px;
+	background-position: right;
+}
+
+.tabSelectedBottom .officeTabLeft 
+{
+	background-image: url(../graphics/office-tab-left-selected.gif);
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+}
+
+
+.tabCellBottom
+{
+	background-color: Transparent;
+	vertical-align:middle;
+	padding: 0;
+	border: 0;
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.tabBottom
+{
+	height:16px;
+	background-color: Transparent;
+	/*padding:0px 3px;
+	margin-left:2px;*/
+	vertical-align: middle;
+/*	cursor:hand;*/
+	padding: 0;
+	border: 0;
+	margin: 0;
+	font:normal 100% verdana,arial,helvetica;
+}
+
+.tabSelectedBottom
+{
+	height:16px;
+/*	border-left:1px solid #8A8A8A;
+	border-right:1px solid #8A8A8A;
+	border-bottom:1px solid #8A8A8A; 
+	padding: 0px 3px;
+	margin-left:2px; */
+	background-color: Transparent;
+	padding: 0;
+	border: 0;
+	margin: 0;
+/*	cursor:hand;*/
+	vertical-align:middle;
+	font:bold 100% verdana,arial,helvetica;
+}
+
+.tabClose
+{
+	height:16px;
+	vertical-align:bottom;
+/*	cursor:hand;*/
+	font:normal 100% verdana,arial,helvetica;
+	padding-left:1px;
+}
+
+.disabled
+{
+	color: Gray;
+}
+
+.disabled img {
+    filter:alpha(opacity=35);
+}
+
+/* //NC 2007-11-19 */
+.desktopBtnCell, .desktopBtnCell_hot, .desktopBtnCell_down
+{
+	width: 1%;
+	white-space: nowrap;
+	background-color:  #bfdbff;
+	padding: 0px 4px;
+}
+
+/* //NC 2007-11-19 */
+.desktopBtnCell_hot
+{
+	background-image: url(../graphics/skins/blue/quickAccessButton_hot.gif);
+	background-repeat: no-repeat;
+	background-position: center -5px;
+}
+
+/* //NC 2007-11-19 */
+.desktopBtnCell_down
+{
+	background-image: url(../graphics/skins/blue/quickAccessButton_down.gif);
+	background-repeat: no-repeat;
+	background-position: center -5px;
+}
+
+
+/* //NC 2007-11-19 */
+.desktopBtn 
+{
+	width: 16px;
+	height: 16px;
+}
+
+.officeBtnSmall, .officeBtnSmall_hot, .officeBtnSmall_down
+{
+	width: 20px;
+	height: 20px;
+	padding: 1px 0 0 0;
+}
+
+.officeBtnSmall img, .officeBtnSmall_hot img, .officeBtnSmall_down img 
+{
+	width: 18px;
+	height: 19px;
+}
+
+
+.officeBtnSmall_hot
+{
+	background-image:  url(../graphics/skins/blue/officeBtnSmall_hot.gif);
+	background-repeat: no-repeat;
+}
+
+.officeBtnSmall_down
+{
+	background-image:  url(../graphics/skins/blue/officeBtnSmall_down.gif);
+	background-repeat: no-repeat;
+}

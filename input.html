@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Confirmation</title>
+    <style type="text/css">
+        body
+        {
+            background-color: threedface;
+        }
+        
+        table#layout 
+        {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #img
+        {
+            width: 45px;
+            height: 45px;
+        }
+        
+        #txt 
+        {
+            text-align: justify;
+            vertical-align: middle;
+        }
+        
+        #txt, input 
+        {
+            font-family: Arial;
+            font-size: 12px;
+        }
+        
+        #txtImgVer 
+        {
+            width: 100%;
+        }
+        
+        #btns 
+        {
+            height: 32px;
+            text-align: center;
+        }
+        
+        #btns input 
+        {
+            height: 26px;
+        }
+        
+        #label 
+        {
+            white-space: nowrap;
+        }
+        
+        #inputContainer 
+        {
+            width: 100%;
+        }
+    </style>
+    
+    <script type="text/javascript">
+        var args = null;
+        var maxPages = 4;
+        var defaultFrom = 1;
+        var defaultTo = 3;
+        var imgVersion = '';
+        var range = new Object();
+        range.from = 0;
+        range.to = 0;
+        
+        function dlgLoad() {
+            args = window.dialogArguments;
+            args.range = range;
+            buildRangeSelection();
+            args.error = false;
+            window.returnValue = false;
+        }
+        
+        function buildRangeSelection() {
+            var selFrom = document.getElementById('selFrom');
+            var selTo = document.getElementById('selTo');
+            
+            selFrom.options.length = 0;
+            selTo.options.length = 0;
+            
+            for (var i = 0; i < maxPages; i++) {
+                var selFromSelected = ((i+1) == defaultFrom);
+                var selToSelected = ((i+1) == defaultTo);
+                selFrom.options[i] = new Option(i+1, i+1, selFromSelected, selFromSelected);
+                selTo.options[i] = new Option(i+1, i+1, selToSelected, selToSelected);
+            }
+        }
+        
+        function CloseWindow(_returnValue) {
+            try {
+                var imgVer = document.getElementById('txtImgVer');
+                
+                if (imgVer.value == '') {
+                    args.error = true;
+                    args.errorMsg = 'Please specify image version!';
+                    window.returnValue = true;
+                    window.close();
+                }
+                args.imgVer = imgVer.value;               
+                
+                var radioRange = document.getElementById('radioRange1');
+                if (radioRange.checked) {
+                    var selFrom = document.getElementById('selFrom');
+                    var selTo = document.getElementById('selTo');
+                    range.from = selFrom.value;
+                    range.to = selTo.value;
+                    
+                    args.range = range;
+                }
+                
+                window.returnValue = _returnValue;
+            }
+            catch (e) {
+                args.error = true;
+                args.errorMsg = e.description;
+                window.returnValue = false;
+            }            
+            window.close();
+        }
+        
+        function onKeyDown() {
+            switch (window.event.keyCode) {
+                case 13:
+                    CloseWindow(true);
+                    return;
+                    
+                case 27:
+                    CloseWindow(false);
+                    return;
+            }
+        }
+    </script>
+</head>
+<body onload="dlgLoad()" onkeydown="onKeyDown()">
+    <table id="layout">
+        <tr>
+            <td id="label">Please enter image version: </td>
+            <td id="inputContainer">
+                <input type="text" id="txtImgVer" value=""/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label><input type="radio" name="radioRange" id="radioRange0" value="0" />No page</label>
+            </td>
+        <tr>
+            <td colspan="2">
+                <label><input type="radio" name="radioRange" id="radioRange1" value="1" checked="checked" />Range:</label>
+                <select id="selFrom"></select> to <select id="selTo"></select>
+            </td>
+        </tr>
+        <tr>
+            <td id="btns" colspan="2">
+                <input type="button" id="btnYes" value=" OK " returnValue="1" onclick="CloseWindow(true)" />
+                <input type="button" id="btnNo" value=" Cancel " returnValue="cancel" onclick="CloseWindow(false)" />
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

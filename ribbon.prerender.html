@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>Ribbon prerender</title>
+    <link href="css/office2007.blue.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      .ribbonInput {
+        border: 1px solid #abc1de;
+        background-color: #eaf2fb;
+        font-family: Tahoma;
+        font-size: 12px;
+        width: 250px;
+      }
+    </style>
+  </head>
+  <body onload="this.parent.ribbon.onPrerenderLoaded();">
+    <!-- <body onload="this.parent.postMessage('pre-render-loaded','*');"> -->
+    <div id="ribbon">
+      <div id="ribbonBar"></div>
+    </div>
+  </body>
+</html>
